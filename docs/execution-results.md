@@ -73,10 +73,14 @@ Bet: Atlanta United vs Seattle Sounders, Home @ 2.65, stake €10.00, starting b
 | `1.005` | input keeps `1.00` | 422 `invalid_stake_precision` | unchanged | ✅ |
 | balance + 0.01 | "Insufficient balance", disabled | **200** | **goes negative** | ❌ BUG-02 |
 | balance + 0.01, after a bet without reload | **enabled** (stale balance) | **200** | **goes negative** | ❌ BUG-02 |
-| stake = balance | enabled | — | — | ⛔ Blocked: balance already negative (BUG-02) |
+| stake = balance (€20.00) | enabled | 200 | → €0.00 | ✅ |
 
 `1.00` is accepted and `0.99` rejected with "Stake must be at least 1.00": the system applies €1.00 as
 the minimum (test plan A1; the spec conflict is still open).
+
+The "stake = balance" row was blocked in the first pass: BUG-02 had already left the balance
+negative, so there was no valid balance to bet. It was rerun on its own after a reset (balance
+€120.00 → €100.00 bet → €20.00 → stake €20.00 accepted, balance €0.00).
 
 ### TC-03 – Pre-match only
 
