@@ -87,22 +87,32 @@ UI run places a real €10.00 bet; tests reset the balance before they start.
 
 ## Project structure
 
-```
-framework/
-  config.py          Settings from environment variables / .env
-  api_client.py      One method per endpoint; returns the raw response to the test
-  models.py          Match and Selection: typed view of the API payload
-  money.py           Decimal parsing, rounding and the payout formula
-  pages/
-    base_page.py     Explicit-wait helpers shared by all page objects
-    betting_page.py  Header, match list and odds buttons
-    bet_slip.py      Stake, totals, Place Bet
-    receipt_modal.py Success receipt
-tests/
-  conftest.py        Fixtures: settings, API client, baseline balance, test match, browser, screenshots
-  api/               API test
-  ui/                UI test
-docs/                Test plan, execution results, strategy, evidence and the assignment documents
+```text
+.
+├── framework/                        # reusable test framework
+│   ├── config.py                     # settings from environment variables / .env
+│   ├── api_client.py                 # one method per endpoint; returns the raw response
+│   ├── models.py                     # Match and Selection: typed view of the API payload
+│   ├── money.py                      # Decimal parsing, rounding, payout formula
+│   └── pages/                        # page objects (Selenium)
+│       ├── base_page.py              # explicit-wait helpers
+│       ├── betting_page.py           # header, match list, odds buttons
+│       ├── bet_slip.py               # stake, totals, Place Bet
+│       └── receipt_modal.py          # success receipt
+├── tests/
+│   ├── conftest.py                   # fixtures: settings, API client, balance, test match, browser
+│   ├── api/test_stake_validation.py  # API test
+│   └── ui/test_place_bet_e2e.py      # UI test
+├── docs/
+│   ├── test-plan.md                  # Part A1
+│   ├── execution-results.md          # Part A2
+│   ├── strategy.md                   # Part C
+│   ├── evidence/                     # screenshots and API logs used by the bug reports
+│   └── requirements/                 # assignment and feature specification
+├── .github/workflows/tests.yml       # CI
+├── pytest.ini                        # markers, HTML report, strict xfail
+├── requirements.txt                  # pinned dependencies
+└── .env.example                      # template for the local .env
 ```
 
 ## Design decisions
