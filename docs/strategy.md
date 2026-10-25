@@ -31,8 +31,9 @@ checked at the cheapest test level that can detect it. Terms follow ISTQB CTFL v
 - Fast and browser-free: it can run on every commit.
 - Known defects are marked `xfail(strict=True)` with their bug ID. When a fix lands, the
   test fails as "unexpectedly passed", which turns it into a **confirmation test** and then
-  back into a plain **regression test**.
-  <!-- TODO after execution: list which cases are xfail and their bug IDs. -->
+  back into a plain **regression test**. Today one case is `xfail`: `negative`, linked to BUG-01.
+- The UI test is not marked `xfail`: it fails today on BUG-05, BUG-06 and BUG-07. Marking the whole
+  journey as expected to fail would hide a new regression in any other field.
 
 **Candidates not chosen:** TC-03 needs a "today"-relative oracle that ages with the
 calendar; the accepted stake cases spend balance on every run; TC-04 depends on timing and
@@ -72,8 +73,9 @@ run can leave dirty state. Recommended:
 - setup endpoints to set an exact balance, fix the catalogue date, and force a placement
   failure.
 
-This makes TC-03 to TC-05 automatable and allows parallel runs.
-<!-- TODO after execution: add what was observed about reset-balance as evidence. -->
+This makes TC-03 to TC-05 automatable and allows parallel runs. It is also needed because the
+only setup tool today is unreliable: the reset reports €125.50 but stores €120.00 (BUG-12), so
+the suite re-reads the balance after every reset instead of trusting the response.
 
 ### 2. CI/CD and additional test layers
 
