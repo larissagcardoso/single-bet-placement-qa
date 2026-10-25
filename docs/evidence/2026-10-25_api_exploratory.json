@@ -1,0 +1,564 @@
+[
+  {
+    "at": "2026-10-25T22:59:09+00:00",
+    "group": "auth",
+    "case": "no header",
+    "request": "GET /api/matches",
+    "auth": "none",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:09+00:00",
+    "group": "auth",
+    "case": "blank header",
+    "request": "GET /api/matches",
+    "auth": "blank",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:10+00:00",
+    "group": "auth",
+    "case": "unknown user",
+    "request": "GET /api/matches",
+    "auth": "invalid",
+    "status": 401,
+    "response": {
+      "error": "invalid_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:10+00:00",
+    "group": "auth",
+    "case": "no header",
+    "request": "GET /api/balance",
+    "auth": "none",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:10+00:00",
+    "group": "auth",
+    "case": "blank header",
+    "request": "GET /api/balance",
+    "auth": "blank",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:10+00:00",
+    "group": "auth",
+    "case": "unknown user",
+    "request": "GET /api/balance",
+    "auth": "invalid",
+    "status": 401,
+    "response": {
+      "error": "invalid_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:11+00:00",
+    "group": "auth",
+    "case": "no header",
+    "request": "POST /api/place-bet",
+    "auth": "none",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:11+00:00",
+    "group": "auth",
+    "case": "blank header",
+    "request": "POST /api/place-bet",
+    "auth": "blank",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:12+00:00",
+    "group": "auth",
+    "case": "unknown user",
+    "request": "POST /api/place-bet",
+    "auth": "invalid",
+    "status": 401,
+    "response": {
+      "error": "invalid_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:12+00:00",
+    "group": "auth",
+    "case": "no header",
+    "request": "POST /api/reset-balance",
+    "auth": "none",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:12+00:00",
+    "group": "auth",
+    "case": "blank header",
+    "request": "POST /api/reset-balance",
+    "auth": "blank",
+    "status": 401,
+    "response": {
+      "error": "missing_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:12+00:00",
+    "group": "auth",
+    "case": "unknown user",
+    "request": "POST /api/reset-balance",
+    "auth": "invalid",
+    "status": 401,
+    "response": {
+      "error": "invalid_user_id"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:13+00:00",
+    "group": "method",
+    "case": "POST not allowed",
+    "request": "POST /api/matches",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:13+00:00",
+    "group": "method",
+    "case": "PUT not allowed",
+    "request": "PUT /api/matches",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:13+00:00",
+    "group": "method",
+    "case": "PATCH not allowed",
+    "request": "PATCH /api/matches",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:13+00:00",
+    "group": "method",
+    "case": "DELETE not allowed",
+    "request": "DELETE /api/matches",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:14+00:00",
+    "group": "method",
+    "case": "POST not allowed",
+    "request": "POST /api/balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:14+00:00",
+    "group": "method",
+    "case": "PUT not allowed",
+    "request": "PUT /api/balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:14+00:00",
+    "group": "method",
+    "case": "PATCH not allowed",
+    "request": "PATCH /api/balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:14+00:00",
+    "group": "method",
+    "case": "DELETE not allowed",
+    "request": "DELETE /api/balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:14+00:00",
+    "group": "method",
+    "case": "GET not allowed",
+    "request": "GET /api/place-bet",
+    "auth": "valid",
+    "status": 200,
+    "response": {}
+  },
+  {
+    "at": "2026-10-25T22:59:15+00:00",
+    "group": "method",
+    "case": "PUT not allowed",
+    "request": "PUT /api/place-bet",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:15+00:00",
+    "group": "method",
+    "case": "PATCH not allowed",
+    "request": "PATCH /api/place-bet",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:15+00:00",
+    "group": "method",
+    "case": "DELETE not allowed",
+    "request": "DELETE /api/place-bet",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:15+00:00",
+    "group": "method",
+    "case": "GET not allowed",
+    "request": "GET /api/reset-balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:16+00:00",
+    "group": "method",
+    "case": "PUT not allowed",
+    "request": "PUT /api/reset-balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:16+00:00",
+    "group": "method",
+    "case": "PATCH not allowed",
+    "request": "PATCH /api/reset-balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:16+00:00",
+    "group": "method",
+    "case": "DELETE not allowed",
+    "request": "DELETE /api/reset-balance",
+    "auth": "valid",
+    "status": 405,
+    "response": {
+      "error": "method_not_allowed"
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:16+00:00",
+    "group": "method",
+    "case": "GET place-bet without auth",
+    "request": "GET /api/place-bet",
+    "auth": "none",
+    "status": 200,
+    "response": {}
+  },
+  {
+    "at": "2026-10-25T22:59:17+00:00",
+    "group": "body",
+    "case": "malformed JSON",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 500,
+    "response": {
+      "error": "internal_server_error",
+      "message": "Unable to process request."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:17+00:00",
+    "group": "body",
+    "case": "empty body",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_match_id",
+      "message": "Match id is invalid."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:17+00:00",
+    "group": "body",
+    "case": "JSON null",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 400,
+    "response": {
+      "error": "invalid_request",
+      "message": "Request body must be a JSON object."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:18+00:00",
+    "group": "body",
+    "case": "JSON array",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 400,
+    "response": {
+      "error": "invalid_request",
+      "message": "Request body must be a JSON object."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:18+00:00",
+    "group": "body",
+    "case": "JSON string",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 400,
+    "response": {
+      "error": "invalid_json",
+      "message": "Malformed JSON body."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:18+00:00",
+    "group": "body",
+    "case": "JSON number",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 400,
+    "response": {
+      "error": "invalid_request",
+      "message": "Request body must be a JSON object."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:18+00:00",
+    "group": "selection",
+    "case": "missing",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_selection",
+      "message": "Selection must be one of: HOME, DRAW, AWAY."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:19+00:00",
+    "group": "selection",
+    "case": "lowercase home",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_selection",
+      "message": "Selection must be one of: HOME, DRAW, AWAY."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:19+00:00",
+    "group": "selection",
+    "case": "padded ' HOME '",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_selection",
+      "message": "Selection must be one of: HOME, DRAW, AWAY."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:20+00:00",
+    "group": "selection",
+    "case": "unknown WIN",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_selection",
+      "message": "Selection must be one of: HOME, DRAW, AWAY."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:20+00:00",
+    "group": "selection",
+    "case": "null",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_selection",
+      "message": "Selection must be one of: HOME, DRAW, AWAY."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:20+00:00",
+    "group": "matchId",
+    "case": "missing",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_match_id",
+      "message": "Match id is invalid."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:21+00:00",
+    "group": "matchId",
+    "case": "empty",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_match_id",
+      "message": "Match id is invalid."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:21+00:00",
+    "group": "matchId",
+    "case": "blank",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_match_id",
+      "message": "Match id is invalid."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:21+00:00",
+    "group": "matchId",
+    "case": "unknown",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 422,
+    "response": {
+      "error": "invalid_match",
+      "message": "Match not found."
+    }
+  },
+  {
+    "at": "2026-10-25T22:59:22+00:00",
+    "group": "extra fields",
+    "case": "odds 1000 and payout 9999 in body",
+    "request": "POST /api/place-bet",
+    "auth": "valid",
+    "status": 200,
+    "response": {
+      "message": "Bet placed successfully",
+      "matchId": "mls-atlanta-seattle-2026-10-28",
+      "selection": "HOME",
+      "stake": 1,
+      "odds": 2.65,
+      "payout": 2.65,
+      "balance": 119,
+      "currency": "USD"
+    }
+  },
+  {
+    "group": "concurrency",
+    "balance_before": "120.00",
+    "balance_after": "110.00",
+    "requests": [
+      {
+        "request": 0,
+        "sent": "2026-10-25T22:59:23.459+00:00",
+        "answered": "2026-10-25T22:59:24.008+00:00",
+        "status": 409,
+        "response": {
+          "error": "bet_in_progress",
+          "message": "A bet is already being processed for this user."
+        }
+      },
+      {
+        "request": 1,
+        "sent": "2026-10-25T22:59:23.459+00:00",
+        "answered": "2026-10-25T22:59:24.081+00:00",
+        "status": 200,
+        "response": {
+          "message": "Bet placed successfully",
+          "matchId": "mls-atlanta-seattle-2026-10-28",
+          "selection": "HOME",
+          "stake": 5,
+          "odds": 2.65,
+          "payout": 13.25,
+          "balance": 115,
+          "currency": "USD"
+        }
+      },
+      {
+        "request": 2,
+        "sent": "2026-10-25T22:59:23.459+00:00",
+        "answered": "2026-10-25T22:59:24.550+00:00",
+        "status": 200,
+        "response": {
+          "message": "Bet placed successfully",
+          "matchId": "mls-atlanta-seattle-2026-10-28",
+          "selection": "HOME",
+          "stake": 5,
+          "odds": 2.65,
+          "payout": 13.25,
+          "balance": 110,
+          "currency": "USD"
+        }
+      }
+    ]
+  }
+]

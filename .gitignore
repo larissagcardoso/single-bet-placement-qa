@@ -1,0 +1,18 @@
+# Local environment
+.venv/
+.env
+
+# Python / pytest caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated on every run (failure screenshots, reports).
+# Curated evidence lives in docs/evidence/ and IS committed.
+artifacts/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
