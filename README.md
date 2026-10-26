@@ -25,7 +25,8 @@ Extra tooling, kept small on purpose:
 
 | Tool | Why |
 |------|-----|
-| `pytest-html` | One self-contained HTML report with the UI screenshots embedded; no Java needed (unlike Allure) |
+| `pytest-html` | Local report: one self-contained HTML file with the UI screenshots embedded; opens with no install |
+| `allure-pytest` + Allure 3 | Published report: dashboard, step-by-step timeline (each UI check green or red), screenshots and API responses. Allure 3 runs on Node, so no Java is needed |
 | `python-dotenv` | Reads the user id from a local `.env` file, so it is never committed |
 | Selenium Manager | Built into Selenium; downloads the matching chromedriver automatically |
 | GitHub Actions | Runs the API tests on every push (see [CI](#ci)) |
@@ -64,8 +65,16 @@ pytest -m api     # API test only, no browser
 pytest -m ui      # UI journey only
 ```
 
-Every run writes `artifacts/report.html` (open it in a browser) with the UI screenshots: bet
-slip, receipt, page after closing the receipt, and the page at the moment of a failure.
+Every run writes two reports with the same screenshots (bet slip, receipt, page after closing
+the receipt, and the page at the moment of a failure):
+
+| Report | How to open |
+|--------|-------------|
+| pytest-html | Open `artifacts/report.html` in a browser |
+| Allure | **Latest published run: https://larissagcardoso.github.io/single-bet-placement-qa/**. Locally (needs Node): `npx allure@3.20.1 generate artifacts/allure-results`, then `npx allure@3.20.1 open artifacts/allure-report` |
+
+In Allure, the `xfail` case is listed as *Skipped*: that is how Allure shows an expected failure;
+its reason names the bug.
 
 ### Expected result against the current build
 
@@ -94,6 +103,7 @@ UI run places a real €10.00 bet; tests reset the balance before they start.
 │   ├── api_client.py                 # one method per endpoint; returns the raw response
 │   ├── models.py                     # Match and Selection: typed view of the API payload
 │   ├── money.py                      # Decimal parsing, rounding, payout formula
+│   ├── soft_checks.py                # soft assertions: each check reported, one failure at the end
 │   └── pages/                        # page objects (Selenium)
 │       ├── base_page.py              # explicit-wait helpers
 │       ├── betting_page.py           # header, match list, odds buttons
@@ -110,7 +120,8 @@ UI run places a real €10.00 bet; tests reset the balance before they start.
 │   ├── evidence/                     # screenshots and API logs used by the bug reports
 │   └── requirements/                 # assignment and feature specification
 ├── .github/workflows/tests.yml       # CI
-├── pytest.ini                        # markers, HTML report, strict xfail
+├── pytest.ini                        # markers, reports, strict xfail
+├── allurerc.mjs                      # Allure report name and output folder
 ├── requirements.txt                  # pinned dependencies
 └── .env.example                      # template for the local .env
 ```
@@ -136,5 +147,6 @@ Why these two tests, and what stayed manual: [`docs/strategy.md`](docs/strategy.
 [`.github/workflows/tests.yml`](.github/workflows/tests.yml) runs the API test on every push and
 pull request: fast, no browser, green while BUG-01 is open thanks to the `xfail`. The full suite,
 including the UI journey, runs on demand from the Actions tab (*Run workflow*), because the UI
-test fails on known product bugs. Both upload the HTML report as an artifact. The user id comes
-from the `USER_ID` repository secret.
+test fails on known product bugs. Every run uploads both reports as an artifact; on-demand runs
+also publish the Allure report to GitHub Pages. The user id comes from the `USER_ID` repository
+secret.

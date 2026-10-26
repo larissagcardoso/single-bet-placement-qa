@@ -3,6 +3,7 @@ name: tests
 # API tests run on every push and pull request: fast and browser-free.
 # The full suite, including the UI journey, runs on demand from the Actions tab,
 # because the E2E test currently fails on known product bugs (see docs/execution-results.md).
+# On-demand runs also publish the Allure report to GitHub Pages.
 on:
   push:
     branches: [main]
@@ -14,6 +15,9 @@ on:
         type: choice
         options: [all, api]
         default: all
+
+permissions:
+  contents: read
 
 jobs:
   tests:
@@ -46,3 +50,33 @@ jobs:
         with:
           name: test-report
           path: artifacts/
+
+      - name: Set up Node for Allure
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Generate Allure report
+        if: always() && github.event_name == 'workflow_dispatch'
+        run: npx --yes allure@3.20.1 generate artifacts/allure-results
+
+      - name: Package Allure report for GitHub Pages
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: artifacts/allure-report
+
+  publish-report:
+    if: always() && github.event_name == 'workflow_dispatch'
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

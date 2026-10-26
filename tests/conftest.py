@@ -3,6 +3,7 @@ import re
 from datetime import UTC, datetime
 from pathlib import Path
 
+import allure
 import pytest
 import pytest_html
 from selenium import webdriver
@@ -61,7 +62,7 @@ def driver(settings):
 
 @pytest.fixture
 def screenshot(request, driver):
-    """Captures a named screenshot that is saved to artifacts/ and embedded in the HTML report."""
+    """Captures a named screenshot: saved to artifacts/ and attached to both reports."""
 
     def capture(name: str) -> None:
         _store(request.node, name, driver.get_screenshot_as_base64())
@@ -86,6 +87,8 @@ def pytest_runtest_makereport(item, call):
 
 def _store(item, name: str, png_base64: str) -> None:
     item.stash.setdefault(SCREENSHOTS, []).append((name, png_base64))
+    png = base64.b64decode(png_base64)
+    allure.attach(png, name=name, attachment_type=allure.attachment_type.PNG)
     ARTIFACTS.mkdir(exist_ok=True)
     slug = re.sub(r"[^a-z0-9]+", "-", f"{item.name} {name}".lower()).strip("-")
-    (ARTIFACTS / f"{slug}.png").write_bytes(base64.b64decode(png_base64))
+    (ARTIFACTS / f"{slug}.png").write_bytes(png)

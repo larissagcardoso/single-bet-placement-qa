@@ -6,15 +6,28 @@ the rejection rows of TC-02's decision table (equivalence partitions and boundar
 Only rejections are automated: they should not change state, so the test is repeatable,
 and a balance change is itself the defect.
 """
+import allure
 import pytest
 
 from framework.models import Selection
 
-pytestmark = pytest.mark.api
+pytestmark = [
+    pytest.mark.api,
+    allure.feature("Bet placement API"),
+    allure.story("Stake validation"),
+    allure.severity(allure.severity_level.CRITICAL),
+]
 
-MISSING = object()
+
+class _Missing:
+    def __repr__(self) -> str:
+        return "<missing>"  # readable in test titles and failure messages
 
 
+MISSING = _Missing()
+
+
+@allure.title("Stake {stake!r} is rejected and does not move money")
 @pytest.mark.parametrize(
     ("stake", "expected_error"),
     [

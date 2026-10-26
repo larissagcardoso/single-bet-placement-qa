@@ -3,8 +3,10 @@
 Endpoint methods return the raw Response so tests own the assertions.
 Setup helpers raise on failure, so a broken precondition never looks like a product defect.
 """
+import json
 from decimal import Decimal
 
+import allure
 import requests
 
 from framework.models import Match
@@ -22,7 +24,9 @@ class BettingApi:
         self.session.close()
 
     def _call(self, method: str, path: str, **kwargs) -> requests.Response:
-        return self.session.request(method, self.base_url + path, timeout=self.timeout, **kwargs)
+        response = self.session.request(method, self.base_url + path, timeout=self.timeout, **kwargs)
+        _attach(method, path, kwargs.get("json"), response)
+        return response
 
     def get_matches(self) -> requests.Response:
         return self._call("GET", "/api/matches")
@@ -51,3 +55,13 @@ class BettingApi:
         """Reads the persisted balance back instead of trusting the reset response."""
         self.reset_balance().raise_for_status()
         return self.balance()
+
+
+def _attach(method: str, path: str, body, response: requests.Response) -> None:
+    # Every call appears in the Allure report. Headers are left out: they carry the user id.
+    request = f"{method} {path}" if body is None else f"{method} {path}\n{json.dumps(body)}"
+    allure.attach(
+        f"{request}\n\n{response.status_code}\n{response.text}",
+        name=f"{method} {path} → {response.status_code}",
+        attachment_type=allure.attachment_type.TEXT,
+    )

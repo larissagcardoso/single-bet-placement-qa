@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -27,9 +28,11 @@ class BettingPage(BasePage):
         return by_id(f"odds-{match_id}-{selection.value.lower()}")
 
     def open(self, url: str) -> "BettingPage":
-        self.driver.get(url)
-        self._wait_until_gone(self.MATCH_LIST_LOADING)
-        self._visible(self.MATCH_LIST)
+        # A context step, not @allure.step: the decorator would record the URL, which holds the user id.
+        with allure.step("Open the app"):
+            self.driver.get(url)
+            self._wait_until_gone(self.MATCH_LIST_LOADING)
+            self._visible(self.MATCH_LIST)
         return self
 
     def header_balance(self) -> Decimal:
@@ -43,6 +46,7 @@ class BettingPage(BasePage):
             pass
         return self.header_balance()
 
+    @allure.step("Select {selection} on {match_id}")
     def select_odds(self, match_id: str, selection: Selection) -> None:
         self._click(self.odds_button(match_id, selection))
         self.wait.until(lambda _: self.bet_slip.selection_count() == 1)

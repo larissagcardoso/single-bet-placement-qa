@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from decimal import Decimal
 
+import allure
+
 from framework.money import parse_money, to_money
 from framework.pages.base_page import BasePage, by_id
 
@@ -29,6 +31,7 @@ class ReceiptModal(BasePage):
         self._visible(self.ROOT)
         return self
 
+    @allure.step("Read the receipt")
     def read(self) -> Receipt:
         return Receipt(
             bet_id=self._text(self.BET_ID),
@@ -39,6 +42,7 @@ class ReceiptModal(BasePage):
             placed_at=self._text(self.PLACED_AT),
         )
 
+    @allure.step("Close the receipt")
     def close(self) -> None:
         self._click(self.CLOSE)
         self._wait_until_gone(self.ROOT)

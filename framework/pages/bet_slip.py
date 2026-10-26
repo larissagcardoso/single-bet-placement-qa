@@ -1,5 +1,7 @@
 from decimal import Decimal
 
+import allure
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
 from framework.money import parse_money
@@ -16,6 +18,7 @@ class BetSlip(BasePage):
     def selection_count(self) -> int:
         return int(self._text(self.COUNT))
 
+    @allure.step("Enter stake {stake}")
     def enter_stake(self, stake: str) -> None:
         field = self._visible(self.STAKE_INPUT)
         # Delete key by key: clear() does not trigger React's change handler.
@@ -29,9 +32,15 @@ class BetSlip(BasePage):
     def potential_payout(self) -> Decimal:
         return parse_money(self._text(self.POTENTIAL_PAYOUT))
 
+    @allure.step("Place the bet")
     def place_bet(self) -> None:
         self._click(self.PLACE_BET)
 
-    def wait_until_placing(self) -> None:
-        # Case-insensitive: CSS may render the label in upper case.
-        self.wait.until(lambda _: "placing" in self._text(self.PLACE_BET).lower())
+    def shows_placing(self) -> bool:
+        """True if the button switches to 'Placing...' after submit."""
+        try:
+            # Case-insensitive: CSS may render the label in upper case.
+            self.wait.until(lambda _: "placing" in self._text(self.PLACE_BET).lower())
+            return True
+        except TimeoutException:
+            return False
