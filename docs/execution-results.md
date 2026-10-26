@@ -1,8 +1,9 @@
 # Execution Results and Bug Reports
 
 **Date:** 2026-10-25 (UTC) · **Build:** https://qae-assignment-tau.vercel.app/ (Version 1.0.0) · **Browser:** Chrome 155, desktop
-**How:** API calls with Python `requests`; UI checks in Chrome driven by Selenium, with screenshots.
-Every call and balance read is logged in [`evidence/`](evidence/).
+**How:** UI checks in Chrome, by hand for TC-01 and with small Selenium scripts to capture exact
+values and repeat each case; API calls with Python `requests` and Swagger UI. Every call and
+balance read is logged in [`evidence/`](evidence/).
 **Test data:** future match `mls-atlanta-seattle-2026-10-28` (Atlanta United vs Seattle Sounders,
 odds 2.65 / 3.40 / 2.45); past match `premier-league-manutd-chelsea` (Manchester Utd vs Chelsea, 2026-02-27).
 **Screenshots of API calls** come from Swagger UI (`/api/docs`). The curl block is hidden because it
